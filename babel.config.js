@@ -9,9 +9,10 @@ module.exports = {
           src: './src',
           components: './src/components',
           routes: './src/routes',
+          providers: './src/providers',
+          features: './src/features',
         },
       },
     ],
-    ['module:react-native-dotenv'],
   ],
 };

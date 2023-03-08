@@ -6,7 +6,9 @@
     "paths": {
       "src/*": ["src/*"],
       "components/*": ["src/components/*"],
-      "routes/*":["src/routes/*"]
+      "routes/*": ["src/routes/*"],
+      "providers/*": ["src/providers/*"],
+      "features/*": ["src/features/*"]
     }
   }
 }
