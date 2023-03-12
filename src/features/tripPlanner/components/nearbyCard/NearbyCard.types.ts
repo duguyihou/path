@@ -1,3 +1,3 @@
-import {SFLocation} from '../../api/fetchStopFinder';
+import {StopFinderLocation} from '../../api/fetchStopFinder';
 
-export type NearbyCardProps = SFLocation;
+export type NearbyCardProps = StopFinderLocation;

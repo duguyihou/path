@@ -1,11 +1,26 @@
 import configService from 'src/config';
 
-type Parent = {
+type ParentLocation = {
   id: string;
   name: string;
+  disassembledName: string;
   type: string;
+  parent: ParentLocation;
 };
-export type SFLocation = {
+
+type StopFinderAssignedStop = {
+  id: string;
+  name: string;
+  disassembledName: string;
+  duration: number;
+  distance: number;
+  coord: number[];
+  parent: ParentLocation;
+  type: string;
+  modes: number[];
+  connectingMode: number;
+};
+export type StopFinderLocation = {
   id: string;
   isGlobalId: boolean;
   name: string;
@@ -17,18 +32,23 @@ export type SFLocation = {
   modes: number[];
   matchQuality: number;
   isBest: boolean;
-  partent: Parent;
-  // assignedStops:
+  partent: ParentLocation;
+  assignedStops: StopFinderAssignedStop[];
 };
-export type SFResponse = {
+type ApiErrorResponse = {
+  message: string;
+  versions: Inline_model;
+};
+
+type Inline_model = {
+  controller: string;
+  interfaceMax: string;
+  interfaceMin: string;
+};
+export type StopFinderResponse = {
   version: string;
-  systemMessages: {
-    type: string;
-    module: string;
-    code: number;
-    text: string;
-  };
-  locations: SFLocation[];
+  error: ApiErrorResponse;
+  locations: StopFinderLocation[];
 };
 
 export enum SFType {
@@ -37,10 +57,11 @@ export enum SFType {
   Stop = 'stop',
   Any = 'any',
 }
+
 const fetchStopFinder = async (
   name_sf: string,
   type_sf: SFType,
-): Promise<SFResponse> => {
+): Promise<StopFinderResponse> => {
   const {baseUrl, apiKey} = configService;
 
   const params = [
