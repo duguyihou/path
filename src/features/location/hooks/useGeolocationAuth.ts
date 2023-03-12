@@ -15,6 +15,7 @@ const useGeolocationAuth = (authLevel: AuthorizationLevel) => {
   useEffect(() => {
     requestAuth();
   }, [authLevel, requestAuth]);
+
   return authResult;
 };
 
