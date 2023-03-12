@@ -7,14 +7,18 @@ type Parent = {
 };
 export type SFLocation = {
   id: string;
+  isGlobalId: boolean;
   name: string;
   disassembledName: string;
-  coord: string[];
-  streetName: string;
+  coord: number[];
   type: string;
+  buildingNumber: string;
+  streetName: string;
+  modes: number[];
   matchQuality: number;
   isBest: boolean;
   partent: Parent;
+  // assignedStops:
 };
 export type SFResponse = {
   version: string;
@@ -26,12 +30,22 @@ export type SFResponse = {
   };
   locations: SFLocation[];
 };
-const fetchStopFinder = async (name_sf: string): Promise<SFResponse> => {
+
+export enum SFType {
+  Coord = 'coord',
+  Poi = 'poi',
+  Stop = 'stop',
+  Any = 'any',
+}
+const fetchStopFinder = async (
+  name_sf: string,
+  type_sf: SFType,
+): Promise<SFResponse> => {
   const {baseUrl, apiKey} = configService;
 
   const params = [
     'outputFormat=rapidJSON',
-    'type_sf=any',
+    `type_sf=${type_sf}`,
     `name_sf=${encodeURIComponent(name_sf)}`,
     `coordOutputFormat=${encodeURIComponent('EPSG:4326')}`,
     'TfNSWSF=true',
