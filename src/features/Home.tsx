@@ -1,10 +1,13 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-import useStopFinder from './tripPlanner/hooks/useStopFinder';
-
+import useCoord from './tripPlanner/hooks/useCoord';
+import useGeolocation from './tripPlanner/hooks/useGeolocation';
 const Home = () => {
-  const {data} = useStopFinder('circle');
+  const geoPosition = useGeolocation('whenInUse');
+
+  const {data} = useCoord(geoPosition);
+
   console.log('🐵 data ------ ', data);
   return (
     <View>
