@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
+import useGeolocation from './location/hooks/useGeolocation';
 import useCoord from './tripPlanner/hooks/useCoord';
-import useGeolocation from './tripPlanner/hooks/useGeolocation';
+
 const Home = () => {
   const geoPosition = useGeolocation('whenInUse');
 
