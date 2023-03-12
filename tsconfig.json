@@ -8,7 +8,9 @@
       "components/*": ["src/components/*"],
       "routes/*": ["src/routes/*"],
       "providers/*": ["src/providers/*"],
-      "features/*": ["src/features/*"]
+      "features/*": ["src/features/*"],
+      "screens/*":["src/screens/*"],
+      "types/*":["src/types/*"]
     }
   }
 }

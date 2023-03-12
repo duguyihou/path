@@ -11,6 +11,8 @@ module.exports = {
           routes: './src/routes',
           providers: './src/providers',
           features: './src/features',
+          screens: './src/screens',
+          types: './src/types',
         },
       },
     ],
