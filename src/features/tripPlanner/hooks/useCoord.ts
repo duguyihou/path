@@ -1,7 +1,11 @@
 import {useQuery} from '@tanstack/react-query';
 import {GeoPosition} from 'react-native-geolocation-service';
 
-import fetchCoord, {CoordResponse, ItemType, Location} from '../api/fetchCoord';
+import fetchCoord, {
+  CoordRequestResponse,
+  CoordRequestResponseLocation,
+  ItemType,
+} from '../api/fetchCoord';
 
 /**
  * Find public transport stops, stations, wharfs and points of interest around that location
@@ -21,7 +25,11 @@ const useCoord = (
     latitude: 0,
     longitude: 0,
   };
-  const queryResult = useQuery<CoordResponse, Error, Location[]>({
+  const queryResult = useQuery<
+    CoordRequestResponse,
+    Error,
+    CoordRequestResponseLocation[]
+  >({
     queryKey: ['coord', geoPosition, type_1],
     queryFn: async () => fetchCoord({longitude, latitude}, type_1, radius_1),
     select: data => data.locations,

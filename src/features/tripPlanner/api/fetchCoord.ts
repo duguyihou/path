@@ -1,39 +1,30 @@
 import configService from 'src/config';
+import {ApiErrorResponse} from 'types/error';
+import {ParentLocation} from 'types/parentLocation';
 
-export type Location = {
-  id: string;
-  name: string;
-  type: string;
-  disassembledName: string;
-  coord: string[];
-  parent: {
-    id: string;
-    name: string;
-    disassembledName: string;
-    type: string;
-  };
-  properties: {
-    distance: number;
-    POI_DRAW_CLASS_TYPE: string;
-    POI_DRAW_CLASS: string;
-    POI_HIERARCHY_KEY: string;
-    POI_HIERARCHY_0: string;
-    GIS_DRAW_CLASS_TYPE: string;
-    GIS_DRAW_CLASS: string;
-    GIS_NIVEAU: string;
-  };
+export type Inline_model_16 = {
+  distance: number;
+  POI_DRAW_CLASS_TYPE: string;
+  POI_DRAW_CLASS: string;
+  POI_HIERARCHY_KEY: string;
+  POI_HIERARCHY_0: string;
+  GIS_DRAW_CLASS_TYPE: string;
+  GIS_DRAW_CLASS: string;
+  GIS_NIVEAU: string;
 };
-export type CoordResponse = {
+export type CoordRequestResponseLocation = {
+  id: string;
+  type: string;
+  name: string;
+  disassembledName: string;
+  coord: number[];
+  parent: ParentLocation;
+  properties: Inline_model_16;
+};
+export type CoordRequestResponse = {
   version: string;
-  error: {
-    message: string;
-    versions: {
-      controller: string;
-      interfaceMax: string;
-      interfaceMin: string;
-    };
-  };
-  locations: Location[];
+  error: ApiErrorResponse;
+  locations: CoordRequestResponseLocation[];
 };
 
 export enum ItemType {
@@ -41,11 +32,6 @@ export enum ItemType {
   BusPoint = 'BUS_POINT',
   POIPoint = 'POI_POINT',
 }
-
-type Coord = {
-  latitude: number;
-  longitude: number;
-};
 
 /**
  * Find public transport stops, stations, wharfs and points of interest around that location
@@ -57,10 +43,10 @@ type Coord = {
  * @returns
  */
 const fetchCoord = async (
-  coord: Coord,
+  coord: {latitude: number; longitude: number},
   type_1: ItemType,
   radius_1: number,
-): Promise<CoordResponse> => {
+): Promise<CoordRequestResponse> => {
   const {longitude, latitude} = coord;
   const {baseUrl, apiKey} = configService;
   const params = [

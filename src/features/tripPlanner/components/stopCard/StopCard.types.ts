@@ -1,3 +1,3 @@
-import {Location} from '../../api/fetchCoord';
+import {CoordRequestResponseLocation} from '../../api/fetchCoord';
 
-export type StopCardProps = Location;
+export type StopCardProps = CoordRequestResponseLocation;

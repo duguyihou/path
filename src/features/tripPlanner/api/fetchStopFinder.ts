@@ -1,12 +1,6 @@
 import configService from 'src/config';
-
-type ParentLocation = {
-  id: string;
-  name: string;
-  disassembledName: string;
-  type: string;
-  parent: ParentLocation;
-};
+import {ApiErrorResponse} from 'types/error';
+import {ParentLocation} from 'types/parentLocation';
 
 type StopFinderAssignedStop = {
   id: string;
@@ -35,16 +29,7 @@ export type StopFinderLocation = {
   partent: ParentLocation;
   assignedStops: StopFinderAssignedStop[];
 };
-type ApiErrorResponse = {
-  message: string;
-  versions: Inline_model;
-};
 
-type Inline_model = {
-  controller: string;
-  interfaceMax: string;
-  interfaceMin: string;
-};
 export type StopFinderResponse = {
   version: string;
   error: ApiErrorResponse;
