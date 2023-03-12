@@ -36,3 +36,15 @@ export const useStopFinderByName = (name_sf: string) => {
 
   return queryResult;
 };
+
+export const useStopFinderById = (id: string) => {
+  const queryResult = useQuery<StopFinderResponse, Error, StopFinderLocation[]>(
+    {
+      queryKey: ['stop_finder', id],
+      queryFn: async () => await fetchStopFinder(id, SFType.Stop),
+      select: data => data.locations,
+    },
+  );
+
+  return queryResult;
+};

@@ -9,6 +9,7 @@ import {NearbyCard} from '../nearbyCard';
 const NearbyCardList = () => {
   const geoPosition = useGeolocation('whenInUse');
   const {data} = useStopFinderByGeo(geoPosition);
+  console.log('🐵  ------ ', data);
   const renderItem = ({item}: {item: StopFinderLocation}) => (
     <NearbyCard {...item} />
   );

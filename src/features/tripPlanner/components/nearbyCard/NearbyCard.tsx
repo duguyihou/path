@@ -1,16 +1,23 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
+import {useStopFinderById} from '../../hooks';
 import {NearbyCardProps} from './NearbyCard.types';
 
 const NearbyCard = (props: NearbyCardProps) => {
-  const {name, disassembledName} = props;
+  const {disassembledName, id} = props;
+  const {data} = useStopFinderById(id);
+  const handlePress = () => console.log('🐵  ------ ', id);
 
   return (
-    <View>
-      <Text>{name}</Text>
+    <TouchableOpacity onPress={handlePress}>
       <Text>{disassembledName}</Text>
-    </View>
+      {data &&
+        data[0].assignedStops
+          .map(e => e.disassembledName)
+          .slice(0, 2)
+          .map(e => <Text key={e}>{e}</Text>)}
+    </TouchableOpacity>
   );
 };
 
