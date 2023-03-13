@@ -1,3 +1,3 @@
-import {StopFinderLocation} from '../../api/fetchStopFinder';
+import {StopFinderAssignedStop} from '../../api/fetchStopFinder';
 
-export type NearbyCardProps = StopFinderLocation;
+export type NearbyCardProps = StopFinderAssignedStop;

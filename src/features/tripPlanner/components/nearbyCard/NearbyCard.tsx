@@ -1,17 +1,22 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import {NearbyCardProps} from './NearbyCard.types';
 
 const NearbyCard = (props: NearbyCardProps) => {
-  const {name, disassembledName} = props;
-
+  const {disassembledName, id} = props;
+  const handlePress = () => console.log('🐵  ------ ', id);
   return (
-    <View>
-      <Text>{name}</Text>
+    <TouchableOpacity onPress={handlePress} style={styles.container}>
       <Text>{disassembledName}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 export default NearbyCard;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+});

@@ -1,2 +1,6 @@
 export {default as useCoord} from './useCoord';
-export {useStopFinderByGeo, useStopFinderByName} from './useStopFinder';
+export {
+  useStopFinderByGeo,
+  useStopFinderById,
+  useStopFinderByName,
+} from './useStopFinder';

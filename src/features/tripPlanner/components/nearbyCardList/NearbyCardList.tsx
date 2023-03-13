@@ -1,25 +1,29 @@
-import {useGeolocation} from 'features/location/hooks';
 import React from 'react';
 import {FlatList, View} from 'react-native';
 
-import {StopFinderLocation} from '../../api/fetchStopFinder';
-import {useStopFinderByGeo} from '../../hooks';
+import {StopFinderAssignedStop} from '../../api/fetchStopFinder';
+import {useStopFinderById} from '../../hooks';
 import {NearbyCard} from '../nearbyCard';
+import {NearbyCardListProps} from './NearbyCardList.types';
 
-const NearbyCardList = () => {
-  const geoPosition = useGeolocation('whenInUse');
-  const {data} = useStopFinderByGeo(geoPosition);
-  const renderItem = ({item}: {item: StopFinderLocation}) => (
+const NearbyCardList = (props: NearbyCardListProps) => {
+  const {stopFinderLocations} = props;
+  const {id} = stopFinderLocations[0];
+  const {data} = useStopFinderById(id);
+
+  const renderItem = ({item}: {item: StopFinderAssignedStop}) => (
     <NearbyCard {...item} />
   );
 
   return (
     <View>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      {data && (
+        <FlatList
+          data={data[0].assignedStops.slice(0, 2)}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      )}
     </View>
   );
 };
