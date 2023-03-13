@@ -10,7 +10,8 @@
       "providers/*": ["src/providers/*"],
       "features/*": ["src/features/*"],
       "screens/*":["src/screens/*"],
-      "types/*":["src/types/*"]
+      "types/*":["src/types/*"],
+      "shared/*":["src/shared/*"]
     }
   }
 }
