@@ -2,7 +2,7 @@ import configService from 'src/config';
 import {ApiErrorResponse} from 'types/error';
 import {ParentLocation} from 'types/parentLocation';
 
-type StopFinderAssignedStop = {
+export type StopFinderAssignedStop = {
   id: string;
   name: string;
   disassembledName: string;
