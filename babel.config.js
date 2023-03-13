@@ -13,6 +13,7 @@ module.exports = {
           features: './src/features',
           screens: './src/screens',
           types: './src/types',
+          shared: './src/shared',
         },
       },
     ],
