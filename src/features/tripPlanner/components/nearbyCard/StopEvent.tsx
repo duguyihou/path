@@ -30,7 +30,13 @@ const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
       <Text style={[styles.name, {backgroundColor: getIconColor(iconId)}]}>
         {disassembledName}
       </Text>
-      <Text style={styles.time}>{dayjs(departureTimePlanned).toNow()}</Text>
+      <Text
+        style={[
+          styles.time,
+          dayjs(departureTimePlanned).isAfter(dayjs()) && {color: theme.red},
+        ]}>
+        {dayjs(departureTimePlanned).toNow()}
+      </Text>
     </View>
   );
 };

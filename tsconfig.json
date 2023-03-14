@@ -11,7 +11,8 @@
       "features/*": ["src/features/*"],
       "screens/*":["src/screens/*"],
       "types/*":["src/types/*"],
-      "shared/*":["src/shared/*"]
+      "shared/*":["src/shared/*"],
+      "utils/*":["src/utils/*"]
     }
   }
 }
