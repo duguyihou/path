@@ -17,6 +17,7 @@ specifiers:
   '@types/react-test-renderer': ^18.0.0
   babel-jest: ^29.5.0
   babel-plugin-module-resolver: ^5.0.0
+  dayjs: ^1.11.7
   eslint: ^8.36.0
   eslint-import-resolver-typescript: ^3.5.3
   eslint-plugin-import: ^2.27.5
@@ -32,19 +33,24 @@ specifiers:
   react-native-safe-area-context: ^4.5.0
   react-native-screens: ^3.20.0
   react-test-renderer: 18.2.0
+  relativeTime: link:dayjs/plugin/relativeTime
   typescript: 4.8.4
+  updateLocale: link:dayjs/plugin/updateLocale
 
 dependencies:
   '@react-navigation/bottom-tabs': 6.5.7_lzeolizq5fdjozeb3mtrlbatoi
   '@react-navigation/native': 6.1.6_yqouayos4dnow7nnkhah4yzuzq
   '@react-navigation/native-stack': 6.9.12_lzeolizq5fdjozeb3mtrlbatoi
   '@tanstack/react-query': 4.26.1_yqouayos4dnow7nnkhah4yzuzq
+  dayjs: 1.11.7
   react: 18.2.0
   react-native: 0.71.3_raab37p3ikkajcivlo24zcd7ie
   react-native-config: 1.5.0
   react-native-geolocation-service: 5.3.1
   react-native-safe-area-context: 4.5.0_yqouayos4dnow7nnkhah4yzuzq
   react-native-screens: 3.20.0_yqouayos4dnow7nnkhah4yzuzq
+  relativeTime: link:dayjs/plugin/relativeTime
+  updateLocale: link:dayjs/plugin/updateLocale
 
 devDependencies:
   '@babel/core': 7.21.0
