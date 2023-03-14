@@ -1,3 +1,4 @@
+import {Icon} from 'components/icon';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from 'shared/theme';
@@ -14,11 +15,17 @@ const NearbyCard = (props: NearbyCardProps) => {
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.stopName}>{disassembledName}</Text>
-        <Text style={styles.distance}>{distance}m</Text>
+        <View>
+          {data &&
+            data.locations[0].assignedStops[0].modes.map(mode => (
+              <Icon key={mode} mode={mode} />
+            ))}
+          <Text style={styles.distance}>{distance}m</Text>
+        </View>
       </View>
       <View style={styles.stopEvents}>
         {data &&
-          data
+          data.stopEvents
             .slice(0, 2)
             .map((stopEvent, idx) => <StopEvent key={idx} {...stopEvent} />)}
       </View>
