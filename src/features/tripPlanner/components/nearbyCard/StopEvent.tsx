@@ -14,7 +14,7 @@ dayjs.updateLocale('en', {
   relativeTime: {
     ...dayjs.Ls.en.relativeTime,
     future: '%s',
-    past: '%s',
+    past: '%s ago',
     m: '1 minute',
     mm: '%d mins',
   },
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 12,
+    marginLeft: 10,
     paddingHorizontal: 2,
     color: theme.primary,
   },

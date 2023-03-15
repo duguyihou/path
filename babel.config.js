@@ -15,6 +15,7 @@ module.exports = {
           types: './src/types',
           shared: './src/shared',
           utils: './src/utils',
+          assets: './src/assets',
         },
       },
     ],

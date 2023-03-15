@@ -16,6 +16,7 @@ const useDepartureMon = (
   itdDate = dayjs().format('YYYYMMDD'),
   itdTime = dayjs().format('HHMM'),
 ) => {
+  console.log('🐵  ------ useDepartureMon');
   const queryResult = useQuery<DepartureMonitorResponse, Error, Data>({
     queryKey: ['coord', name_dm],
     queryFn: async () => fetchDepartureMon(name_dm, itdDate, itdTime),
@@ -26,7 +27,7 @@ const useDepartureMon = (
       ),
     }),
     enabled: !!name_dm,
-    refetchInterval: 1000 * 60 * 2,
+    refetchInterval: 1000 * 60,
   });
 
   return queryResult;

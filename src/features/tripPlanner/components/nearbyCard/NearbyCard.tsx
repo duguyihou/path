@@ -15,7 +15,7 @@ const NearbyCard = (props: NearbyCardProps) => {
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.stopName}>{disassembledName}</Text>
-        <View>
+        <View style={styles.details}>
           {data &&
             data.locations[0].assignedStops[0].modes.map(mode => (
               <Icon key={mode} mode={mode} />
@@ -49,12 +49,25 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  details: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  modes: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
   stopName: {
     fontSize: 18,
   },
   distance: {
     fontSize: 12,
     color: theme.grey_2,
+    paddingLeft: 10,
   },
   stopEvents: {
     display: 'flex',
