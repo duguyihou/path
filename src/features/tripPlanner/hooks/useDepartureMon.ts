@@ -16,15 +16,12 @@ const useDepartureMon = (
   itdDate = dayjs().format('YYYYMMDD'),
   itdTime = dayjs().format('HHMM'),
 ) => {
-  console.log('🐵  ------ useDepartureMon');
   const queryResult = useQuery<DepartureMonitorResponse, Error, Data>({
     queryKey: ['coord', name_dm],
     queryFn: async () => fetchDepartureMon(name_dm, itdDate, itdTime),
     select: data => ({
       locations: data.locations,
-      stopEvents: data.stopEvents.sort((a, b) =>
-        a.departureTimePlanned.localeCompare(b.departureTimePlanned),
-      ),
+      stopEvents: data.stopEvents,
     }),
     enabled: !!name_dm,
     refetchInterval: 1000 * 60,

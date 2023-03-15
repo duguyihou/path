@@ -1,4 +1,5 @@
 import {Icon} from 'components/icon';
+import dayjs from 'dayjs';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from 'shared/theme';
@@ -11,10 +12,13 @@ const NearbyCard = (props: NearbyCardProps) => {
   const {disassembledName, id, distance} = props;
   const handlePress = () => console.log('🐵  ------ ', id);
   const {data} = useDepartureMon(id);
+
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.stopName}>{disassembledName}</Text>
+        <Text style={styles.stopName} numberOfLines={1}>
+          {disassembledName}
+        </Text>
         <View style={styles.details}>
           {data &&
             data.locations[0].assignedStops[0].modes.map(mode => (
@@ -26,6 +30,9 @@ const NearbyCard = (props: NearbyCardProps) => {
       <View style={styles.stopEvents}>
         {data &&
           data.stopEvents
+            .filter(stopEvent =>
+              dayjs(stopEvent.departureTimePlanned).isAfter(dayjs()),
+            )
             .slice(0, 2)
             .map((stopEvent, idx) => <StopEvent key={idx} {...stopEvent} />)}
       </View>
@@ -44,6 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   header: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
