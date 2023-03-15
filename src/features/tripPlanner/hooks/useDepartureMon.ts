@@ -5,25 +5,26 @@ import fetchDepartureMon, {
   DepartureMonitorResponse,
   DepartureMonitorResponseStopEvent,
 } from '../api/fetchDepartureMon';
+import {StopFinderLocation} from '../api/fetchStopFinder';
 
+type Data = {
+  locations: StopFinderLocation[];
+  stopEvents: DepartureMonitorResponseStopEvent[];
+};
 const useDepartureMon = (
   name_dm: string,
   itdDate = dayjs().format('YYYYMMDD'),
   itdTime = dayjs().format('HHMM'),
 ) => {
-  const queryResult = useQuery<
-    DepartureMonitorResponse,
-    Error,
-    DepartureMonitorResponseStopEvent[]
-  >({
+  const queryResult = useQuery<DepartureMonitorResponse, Error, Data>({
     queryKey: ['coord', name_dm],
     queryFn: async () => fetchDepartureMon(name_dm, itdDate, itdTime),
-    select: data =>
-      data.stopEvents.sort((a, b) =>
-        a.departureTimePlanned.localeCompare(b.departureTimePlanned),
-      ),
+    select: data => ({
+      locations: data.locations,
+      stopEvents: data.stopEvents,
+    }),
     enabled: !!name_dm,
-    refetchInterval: 1000 * 60 * 2,
+    refetchInterval: 1000 * 60,
   });
 
   return queryResult;

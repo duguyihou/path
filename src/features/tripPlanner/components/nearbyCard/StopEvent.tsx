@@ -13,10 +13,12 @@ dayjs.extend(updateLocale);
 dayjs.updateLocale('en', {
   relativeTime: {
     ...dayjs.Ls.en.relativeTime,
-    future: '%s',
     past: '%s',
+    s: 'now',
     m: '1 minute',
     mm: '%d mins',
+    h: '1 hour',
+    hh: '%d hours',
   },
 });
 const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
@@ -24,13 +26,19 @@ const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
     departureTimePlanned,
     transportation: {disassembledName, iconId},
   } = props;
-
+  console.log('🐵  ------ ', departureTimePlanned);
   return (
     <View style={styles.container}>
       <Text style={[styles.name, {backgroundColor: getIconColor(iconId)}]}>
         {disassembledName}
       </Text>
-      <Text style={styles.time}>{dayjs(departureTimePlanned).toNow()}</Text>
+      <Text
+        style={[
+          styles.time,
+          dayjs(departureTimePlanned).isBefore(dayjs()) && {color: theme.red},
+        ]}>
+        {dayjs(departureTimePlanned).toNow()}
+      </Text>
     </View>
   );
 };
@@ -46,16 +54,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: theme.white,
     textAlign: 'center',
-    width: 50,
+    width: 60,
     borderRadius: 4,
     overflow: 'hidden',
   },
   time: {
     fontSize: 12,
+    marginLeft: 10,
     paddingHorizontal: 2,
     color: theme.primary,
   },

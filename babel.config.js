@@ -14,6 +14,8 @@ module.exports = {
           screens: './src/screens',
           types: './src/types',
           shared: './src/shared',
+          utils: './src/utils',
+          assets: './src/assets',
         },
       },
     ],

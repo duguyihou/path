@@ -1,3 +1,5 @@
+import {Icon} from 'components/icon';
+import dayjs from 'dayjs';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from 'shared/theme';
@@ -10,15 +12,27 @@ const NearbyCard = (props: NearbyCardProps) => {
   const {disassembledName, id, distance} = props;
   const handlePress = () => console.log('🐵  ------ ', id);
   const {data} = useDepartureMon(id);
+
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.stopName}>{disassembledName}</Text>
-        <Text style={styles.distance}>{distance}m</Text>
+        <Text style={styles.stopName} numberOfLines={1}>
+          {disassembledName}
+        </Text>
+        <View style={styles.details}>
+          {data &&
+            data.locations[0].assignedStops[0].modes.map(mode => (
+              <Icon key={mode} mode={mode} />
+            ))}
+          <Text style={styles.distance}>{distance}m</Text>
+        </View>
       </View>
       <View style={styles.stopEvents}>
         {data &&
-          data
+          data.stopEvents
+            .filter(stopEvent =>
+              dayjs(stopEvent.departureTimePlanned).isAfter(dayjs()),
+            )
             .slice(0, 2)
             .map((stopEvent, idx) => <StopEvent key={idx} {...stopEvent} />)}
       </View>
@@ -37,8 +51,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   header: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  modes: {
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
@@ -48,6 +75,7 @@ const styles = StyleSheet.create({
   distance: {
     fontSize: 12,
     color: theme.grey_2,
+    paddingLeft: 10,
   },
   stopEvents: {
     display: 'flex',
