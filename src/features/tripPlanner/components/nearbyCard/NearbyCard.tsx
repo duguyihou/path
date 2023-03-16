@@ -1,6 +1,6 @@
 import {Icon} from 'components/icon';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from 'shared/theme';
 
@@ -10,8 +10,13 @@ import StopEvent from './StopEvent';
 
 const NearbyCard = (props: NearbyCardProps) => {
   const {disassembledName, id, distance} = props;
-  const handlePress = () => console.log('🐵  ------ ', id);
   const {data} = useDepartureMon(id);
+  const [now, setNow] = useState(() => dayjs());
+  useEffect(() => {
+    const interval = setInterval(() => setNow(dayjs()), 1000 * 60);
+    return () => clearInterval(interval);
+  }, []);
+  const handlePress = () => console.log('🐵  ------ ', id);
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
@@ -31,7 +36,7 @@ const NearbyCard = (props: NearbyCardProps) => {
         {data &&
           data.stopEvents
             .filter(stopEvent =>
-              dayjs(stopEvent.departureTimePlanned).isAfter(dayjs()),
+              dayjs(stopEvent.departureTimePlanned).isAfter(now),
             )
             .slice(0, 2)
             .map((stopEvent, idx) => <StopEvent key={idx} {...stopEvent} />)}
