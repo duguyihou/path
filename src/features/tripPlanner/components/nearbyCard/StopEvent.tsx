@@ -14,11 +14,12 @@ dayjs.updateLocale('en', {
   relativeTime: {
     ...dayjs.Ls.en.relativeTime,
     past: '%s',
+    future: '%s',
     s: 'now',
-    m: '1 minute',
-    mm: '%d mins',
+    m: '1 min',
+    mm: '%d min',
     h: '1 hour',
-    hh: '%d hours',
+    hh: '%d hour',
   },
 });
 const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
@@ -26,7 +27,7 @@ const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
     departureTimePlanned,
     transportation: {disassembledName, iconId},
   } = props;
-  console.log('🐵  ------ ', departureTimePlanned);
+
   return (
     <View style={styles.container}>
       <Text style={[styles.name, {backgroundColor: getIconColor(iconId)}]}>
@@ -48,6 +49,7 @@ export default StopEvent;
 const styles = StyleSheet.create({
   container: {
     padding: 2,
+    width: 120,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',

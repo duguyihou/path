@@ -24,7 +24,6 @@ const useDepartureMon = (
       stopEvents: data.stopEvents,
     }),
     enabled: !!name_dm,
-    refetchInterval: 1000 * 60,
   });
 
   return queryResult;
