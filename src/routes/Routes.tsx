@@ -2,6 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import DepartureMon from 'screens/DepartureMon';
 import Home from 'screens/Home';
 import Search from 'screens/Search';
 
@@ -13,6 +14,10 @@ function HomeStackScreen() {
     <HomeStack.Navigator>
       <HomeStack.Group>
         <HomeStack.Screen name={RouteName.Home} component={Home} />
+        <HomeStack.Screen
+          name={RouteName.DepartureMon}
+          component={DepartureMon}
+        />
       </HomeStack.Group>
     </HomeStack.Navigator>
   );

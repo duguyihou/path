@@ -6,6 +6,7 @@ import {
 
 export type HomeStackParamList = {
   Home: undefined;
+  DepartureMon: {id: string; disassembledName: string};
 };
 
 export type HomeStackProps = NativeStackScreenProps<HomeStackParamList>;
@@ -20,5 +21,6 @@ export type HomeRouteType<K extends keyof HomeStackParamList> = RouteProp<
 export enum RouteName {
   HomeStack = 'HomeStack',
   Home = 'Home',
+  DepartureMon = 'DepartureMon',
   Search = 'Search',
 }
