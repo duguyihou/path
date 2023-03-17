@@ -1,19 +1,28 @@
 import React from 'react';
-import {View} from 'react-native';
+import {FlatList, View} from 'react-native';
 
+import {DepartureMonitorResponseStopEvent} from '../../api/fetchDepartureMon';
 import useDepartureMon from '../../hooks/useDepartureMon';
-import StopEvent from '../nearbyCard/StopEvent';
+import {StopEventCard} from '../stopEventCard';
 import {StopEventListProps} from './StopEventList.types';
 
 const StopEventList = ({id}: StopEventListProps) => {
   const {data} = useDepartureMon(id);
-  // TODO: flatlist
+
+  const renderItem = ({item}: {item: DepartureMonitorResponseStopEvent}) => (
+    <StopEventCard {...item} />
+  );
   return (
     <View>
-      {data &&
-        data.stopEvents.map((stopEvent, idx) => (
-          <StopEvent key={idx} {...stopEvent} />
-        ))}
+      {data && (
+        <FlatList
+          data={data.stopEvents}
+          renderItem={renderItem}
+          keyExtractor={item =>
+            item.transportation.properties.tripCode.toString()
+          }
+        />
+      )}
     </View>
   );
 };
