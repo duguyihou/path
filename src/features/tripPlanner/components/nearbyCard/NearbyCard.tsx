@@ -1,8 +1,10 @@
+import {useNavigation} from '@react-navigation/native';
 import {Icon} from 'components/icon';
 import dayjs from 'dayjs';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {theme} from 'shared/theme';
+import {HomeStackNavigationProps, RouteName} from 'src/routes/Routes.types';
 
 import useDepartureMon from '../../hooks/useDepartureMon';
 import {NearbyCardProps} from './NearbyCard.types';
@@ -12,11 +14,14 @@ const NearbyCard = (props: NearbyCardProps) => {
   const {disassembledName, id, distance} = props;
   const {data} = useDepartureMon(id);
   const [now, setNow] = useState(() => dayjs());
+  const navigation = useNavigation<HomeStackNavigationProps>();
   useEffect(() => {
     const interval = setInterval(() => setNow(dayjs()), 1000 * 60);
     return () => clearInterval(interval);
   }, []);
-  const handlePress = () => console.log('🐵  ------ ', id);
+  const handlePress = () => {
+    navigation.push(RouteName.DepartureMon, {id, disassembledName});
+  };
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>

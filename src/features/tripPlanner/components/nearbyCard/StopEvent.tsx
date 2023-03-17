@@ -1,27 +1,11 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import updateLocale from 'dayjs/plugin/updateLocale';
+import {ColoredName} from 'components/coloredName';
+import {DepartureTime} from 'components/departureTime';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {getIconColor} from 'shared/color';
+import {StyleSheet, View} from 'react-native';
 import {theme} from 'shared/theme';
 
 import {DepartureMonitorResponseStopEvent} from '../../api/fetchDepartureMon';
 
-dayjs.extend(relativeTime);
-dayjs.extend(updateLocale);
-dayjs.updateLocale('en', {
-  relativeTime: {
-    ...dayjs.Ls.en.relativeTime,
-    past: '%s',
-    future: '%s',
-    s: 'now',
-    m: '1 min',
-    mm: '%d min',
-    h: '1 hour',
-    hh: '%d hour',
-  },
-});
 const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
   const {
     departureTimePlanned,
@@ -30,16 +14,12 @@ const StopEvent = (props: DepartureMonitorResponseStopEvent) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.name, {backgroundColor: getIconColor(iconId)}]}>
-        {disassembledName}
-      </Text>
-      <Text
-        style={[
-          styles.time,
-          dayjs(departureTimePlanned).isBefore(dayjs()) && {color: theme.red},
-        ]}>
-        {dayjs(departureTimePlanned).toNow()}
-      </Text>
+      <ColoredName
+        name={disassembledName}
+        style={styles.name}
+        iconId={iconId}
+      />
+      <DepartureTime time={departureTimePlanned} style={styles.time} />
     </View>
   );
 };
@@ -66,8 +46,8 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 12,
+    color: theme.primary,
     marginLeft: 10,
     paddingHorizontal: 2,
-    color: theme.primary,
   },
 });

@@ -24,6 +24,7 @@ const useDepartureMon = (
       stopEvents: data.stopEvents,
     }),
     enabled: !!name_dm,
+    staleTime: 1000 * 60,
   });
 
   return queryResult;
