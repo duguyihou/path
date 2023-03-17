@@ -65,6 +65,7 @@ export const theme = {
   white: '#FFFFFF',
   black: '#000000',
   red: '#f54338',
+  transparent: 'transparent',
   network,
   icon,
 };

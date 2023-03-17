@@ -6,6 +6,7 @@ import {STOP_EVENT_CARD_HEIGHT} from 'shared/constants';
 import {DepartureMonitorResponseStopEvent} from '../../api/fetchDepartureMon';
 import useDepartureMon from '../../hooks/useDepartureMon';
 import {StopEventCard} from '../stopEventCard';
+import {StopEventSegmentedControl} from '../stopEventSegmentedControl';
 import {StopEventListProps} from './StopEventList.types';
 
 const StopEventList = ({id}: StopEventListProps) => {
@@ -20,7 +21,9 @@ const StopEventList = ({id}: StopEventListProps) => {
   const upcomingIndex = data.stopEvents.findIndex(stopEvent =>
     dayjs(stopEvent.departureTimePlanned).isAfter(dayjs()),
   );
-
+  const stopEventCategory = [
+    ...new Set(data.stopEvents.map(se => se.transportation.disassembledName)),
+  ];
   return (
     <View>
       <FlatList
@@ -34,6 +37,7 @@ const StopEventList = ({id}: StopEventListProps) => {
         initialScrollIndex={upcomingIndex}
         keyExtractor={(_, idx) => idx.toString()}
       />
+      <StopEventSegmentedControl values={stopEventCategory} />
     </View>
   );
 };
