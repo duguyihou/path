@@ -32,9 +32,7 @@ const StopEventList = ({id}: StopEventListProps) => {
           index,
         })}
         initialScrollIndex={upcomingIndex}
-        keyExtractor={item =>
-          item.transportation.properties.tripCode.toString()
-        }
+        keyExtractor={(_, idx) => idx.toString()}
       />
     </View>
   );
