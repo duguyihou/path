@@ -1,3 +1,9 @@
+import {DepartureMonitorResponseStopEvent} from '../../api/fetchDepartureMon';
+
 export type StopEventSegmentedControlProps = {
-  values: string[];
+  data: DepartureMonitorResponseStopEvent[];
+  stopEventList: DepartureMonitorResponseStopEvent[];
+  setStopEventList: React.Dispatch<
+    React.SetStateAction<DepartureMonitorResponseStopEvent[] | undefined>
+  >;
 };

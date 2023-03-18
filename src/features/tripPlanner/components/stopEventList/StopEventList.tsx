@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {STOP_EVENT_CARD_HEIGHT} from 'shared/constants';
 
 import {DepartureMonitorResponseStopEvent} from '../../api/fetchDepartureMon';
@@ -11,23 +11,22 @@ import {StopEventListProps} from './StopEventList.types';
 
 const StopEventList = ({id}: StopEventListProps) => {
   const {data} = useDepartureMon(id);
+  const [stopEventList, setStopEventList] = useState(data?.stopEvents);
 
   const renderItem = ({item}: {item: DepartureMonitorResponseStopEvent}) => (
     <StopEventCard {...item} />
   );
-  if (!data) {
+  if (!stopEventList) {
     return <Text>loading...</Text>;
   }
-  const upcomingIndex = data.stopEvents.findIndex(stopEvent =>
+  const upcomingIndex = stopEventList.findIndex(stopEvent =>
     dayjs(stopEvent.departureTimePlanned).isAfter(dayjs()),
   );
-  const stopEventCategory = [
-    ...new Set(data.stopEvents.map(se => se.transportation.disassembledName)),
-  ];
+
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
-        data={data.stopEvents}
+        data={stopEventList}
         renderItem={renderItem}
         getItemLayout={(_, index) => ({
           length: STOP_EVENT_CARD_HEIGHT,
@@ -37,9 +36,21 @@ const StopEventList = ({id}: StopEventListProps) => {
         initialScrollIndex={upcomingIndex}
         keyExtractor={(_, idx) => idx.toString()}
       />
-      <StopEventSegmentedControl values={stopEventCategory} />
+      {data && (
+        <StopEventSegmentedControl
+          data={data.stopEvents}
+          stopEventList={stopEventList}
+          setStopEventList={setStopEventList}
+        />
+      )}
     </View>
   );
 };
 
 export default StopEventList;
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  },
+});
